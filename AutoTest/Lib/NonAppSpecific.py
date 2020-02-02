@@ -2,20 +2,30 @@
 Methods that can be used for every site
 """
 import time
-
-from Lib.common.WaitAction import wait_until
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions
 from selenium.webdriver.support.wait import WebDriverWait
-
 from AutoTest.Lib.Driver import Driver
+from AutoTest.Lib.Log import Log
 
+
+def create_driver(driver_name, test_name):
+    """
+    Create driver with driver_name and create log in Logs file with test_name
+    :param driver_name: Firefox or chrome
+    :param test_name: Name for log file
+    :return:
+    """
+    driver = Driver().create_driver(driver_name)
+    Log(driver, test_name)
+    Log.info("Started browser {}".format(driver_name))
+    return driver
 
 def wait_until(somepredicate, timeout=60, period=1, errorMessage="Timeout expired"):
     """
-    Somepredicate is function that returns True or False. This function is executed every for period during
-    timeout. When somepredicate return True wait is done. If somepredicate don't return True during timeout,
-    exception is raised.
+    Somepredicate is function that returns boolean. This function is executed every second
+    (this is set in period parameter) during timeout. Function is finished when somepredicate
+    return True or when timeout passes. If timeout is exceeded exception is raised.
 
     :param somepredicate: Function that return True of False
     :type somepredicate: func
@@ -23,7 +33,6 @@ def wait_until(somepredicate, timeout=60, period=1, errorMessage="Timeout expire
     :type timeout: int
     :param period: Execute function for every period seconds
     :type period: float
-    :return:
     """
     mustend = time.time() + timeout
     value = False
@@ -37,7 +46,6 @@ def wait_until(somepredicate, timeout=60, period=1, errorMessage="Timeout expire
             return True
         time.sleep(period)
     raise Exception(errorMessage)
-
 
 def wait_element_visible(driver, css_selector, timeout=30):
     """
@@ -57,7 +65,7 @@ def wait_page_load(driver):
     """
     Wait page to load
     """
-    wait_until(lambda: Driver.driver.execute_script("return document.readyState;") == "complete", timeout=30)
+    wait_until(lambda: driver.execute_script("return document.readyState;") == "complete", timeout=30)
 
 def send_text(element, text, mode="set"):
     """

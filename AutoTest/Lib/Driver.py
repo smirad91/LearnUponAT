@@ -4,14 +4,11 @@ Class used for creating driver
 from selenium import webdriver
 from Lib.common.NonAppSpecific import close_driver
 
-from AutoTest.Lib.Log import Log
-
-
 class Driver:
     def __init__(self):
         self.driver = None
 
-    def create_driver(self, driver_name, ):
+    def create_driver(self, driver_name):
         """
         Create driver instance
         :param driver_name: browser name

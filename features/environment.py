@@ -1,14 +1,12 @@
 from behave.fixture import fixture, use_fixture_by_tag
-
-from AutoTest.Lib.Driver import Driver
 from AutoTest.Lib.Log import Log
+from AutoTest.Lib.NonAppSpecific import create_driver
 
 
 @fixture
 def browser(context):
     driver_name = context.config.userdata.get("name", "Firefox")
-    driver = Driver().create_driver(driver_name)
-    Log(driver, context.feature.filename.split(".")[0])     #Second parameter works for command line execution
+    driver = create_driver(driver_name, context.feature.filename.split(".")[0]) #Second parameter works for command line execution
     context.driver = driver
     yield context
     # -- CLEANUP-FIXTURE PART:
