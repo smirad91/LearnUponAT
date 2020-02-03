@@ -1,5 +1,5 @@
 from behave import use_step_matcher, given, when, then, step
-from AutoTest.FeatureAction.LoginFeature import LoginFeature
+from AutoTest.FeatureAction.LogginFeature import LoginFeature
 from AutoTest.Lib.Log import Log
 from AutoTest.Lib.NonAppSpecific import send_text, wait_until
 from AutoTest.ElementRepository.LoggingRepository import LoggingRepository

@@ -29,11 +29,11 @@ class Log:
                 if x.startswith(log_name):
                     try:
                         log_duplicate_names.append(int(x.split("-")[1]))
-                    except:
+                    except Exception as ex:
                         pass
             try:
                 last_number = max(log_duplicate_names)
-            except:
+            except Exception as ex:
                 last_number = 0
             new_number = last_number + 1
             current_log_folder = os.path.join(log_folder, log_name + "-" + str(new_number))

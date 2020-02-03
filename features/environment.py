@@ -5,9 +5,8 @@ from AutoTest.Lib.NonAppSpecific import create_driver
 
 @fixture
 def browser(context):
-    driver_name = context.config.userdata.get("name", "Firefox")
-    driver = create_driver(driver_name,
-                           context.feature.filename.split("features/")[1].split(".")[0])
+    driver_name = context.config.userdata.get("browser", "Firefox")
+    driver = create_driver(driver_name, context.feature.filename.split("features/")[1].split(".")[0])
     context.driver = driver
     yield context
     # -- CLEANUP-FIXTURE PART:
@@ -20,7 +19,7 @@ def browser(context):
         Log.screenshot("", True)
         Log.screenshot("Test failed. {}".format(error))
     else:
-        Log.screenshot("Test ended successfully", True)
+        Log.screenshot("Test ended successfully", False)
     context.driver.close()
 
 

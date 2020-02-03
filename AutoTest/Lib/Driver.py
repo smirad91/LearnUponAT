@@ -30,4 +30,5 @@ class Driver:
         """
         Close driver and all handles (all tabs...)
         """
+        self.driver.quit()
         self.driver.close()

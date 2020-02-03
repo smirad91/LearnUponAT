@@ -41,7 +41,6 @@ def wait_until(context, somepredicate, timeout=60, period=1, errorMessage="Timeo
         try:
             value = somepredicate()
         except Exception as ex:
-            print(ex)
             pass
         if value:
             return True
@@ -49,15 +48,14 @@ def wait_until(context, somepredicate, timeout=60, period=1, errorMessage="Timeo
     context.error_msg = errorMessage
     raise Exception(errorMessage)
 
-
 def implicit_wait(driver, timeout):
     """
-    Wait for specified seconds. Workaround because time.sleep() is not working in behave framework
+    Wait for specified seconds. This is workaround because time.sleep() is not working in behave framework
     """
     try:
         wait_driver = WebDriverWait(driver, timeout)
         wait_driver.until(EC.presence_of_element_located((By.ID, 'notexistingid')))
-    except:
+    except Exception as ex:
         pass
 
 def wait_page_load(context):
