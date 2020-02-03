@@ -7,7 +7,7 @@ from AutoTest.Lib.NonAppSpecific import create_driver
 def browser(context):
     driver_name = context.config.userdata.get("name", "Firefox")
     driver = create_driver(driver_name,
-                           context.feature.filename.split(".")[0])  # Second parameter works for command line execution
+                           context.feature.filename.split("features/")[1].split(".")[0])
     context.driver = driver
     yield context
     # -- CLEANUP-FIXTURE PART:

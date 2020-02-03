@@ -1,6 +1,8 @@
 """
 Class used for creating driver
 """
+import os
+
 from selenium import webdriver
 from Lib.common.NonAppSpecific import close_driver
 
@@ -14,10 +16,12 @@ class Driver:
         :param driver_name: browser name
         :type driver_name: str
         """
+        drivers_folder = os.path.abspath(os.path.join(os.path.dirname(os.path.abspath(__file__)),
+                                                      os.pardir, os.pardir, "Drivers"))
         if driver_name.lower() == "firefox":
-            driver = webdriver.Firefox()
+            driver = webdriver.Firefox(executable_path=os.path.join(drivers_folder, "geckodriver.exe"))
         elif driver_name.lower() == "chrome":
-            driver = webdriver.Chrome()
+            driver = webdriver.Chrome(executable_path=os.path.join(drivers_folder, "chromedriver.exe"))
         else:
             raise Exception("Supported drivers are Firefox and Chrome. You forwarded {}".format(driver_name))
         driver.maximize_window()

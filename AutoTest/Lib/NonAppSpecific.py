@@ -1,10 +1,9 @@
 """
 Methods that can be used for every site
 """
-import sys
+
 import time
 
-from pytest import fail
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait

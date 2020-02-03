@@ -5,3 +5,5 @@
  # 2. do the action
  # 3. wait for action to finish
 # 4. log screenshot or info
+
+How to execute tests

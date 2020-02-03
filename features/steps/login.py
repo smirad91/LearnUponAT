@@ -1,10 +1,7 @@
 from behave import use_step_matcher, given, when, then, step
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.wait import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
 from AutoTest.FeatureAction.LoginFeature import LoginFeature
 from AutoTest.Lib.Log import Log
-from AutoTest.Lib.NonAppSpecific import send_text, implicit_wait, wait_until
+from AutoTest.Lib.NonAppSpecific import send_text, wait_until
 from AutoTest.ElementRepository.LoggingRepository import LoggingRepository
 
 use_step_matcher("re")
