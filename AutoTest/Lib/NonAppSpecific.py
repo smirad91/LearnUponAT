@@ -3,7 +3,6 @@ Methods that can be used for every site
 """
 
 import time
-
 from selenium.webdriver.common.by import By
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
@@ -79,9 +78,9 @@ def send_text(element, text, mode="set"):
     :type mode: str
     :return:
     """
-    if mode is "set":
+    if mode == "set":
         element.send_keys(text)
-    elif mode is "update":
+    elif mode == "update":
         element.clear()
         element.send_keys(text)
     else:

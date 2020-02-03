@@ -2,9 +2,7 @@
 Class used for creating driver
 """
 import os
-
 from selenium import webdriver
-from Lib.common.NonAppSpecific import close_driver
 
 class Driver:
     def __init__(self):
@@ -32,4 +30,4 @@ class Driver:
         """
         Close driver and all handles (all tabs...)
         """
-        close_driver(self.driver)
+        self.driver.close()

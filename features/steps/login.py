@@ -26,13 +26,13 @@ def step_impl(context, username, password):
     :type username: str
     :type password: str
     """
-    if username is not "":
+    if username != "":
         Log.info("Insert username: {}".format(username))
         send_text(LoggingRepository().inp_username(context), username)
         wait_until(context, lambda: LoggingRepository.inp_username(context).get_attribute('value') == username,
                    timeout=10, errorMessage="Username is not correct")
         Log.info("Username added")
-    if password is not "":
+    if password != "":
         Log.info("Insert password: {}".format(password))
         send_text(LoggingRepository.inp_password(context), password)
         wait_until(context, lambda: LoggingRepository.inp_password(context).get_attribute('value') == password

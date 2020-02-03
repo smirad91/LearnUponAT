@@ -68,7 +68,7 @@ class Log:
         :type full_screen: bool
         """
         time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-        if msg!="":
+        if msg != "":
             msg = time + " -- " + msg
         screenshot_name = str(Log.screenshotNumber) + ".png"
         picture_path = os.path.join(Log.testLogFolderPath, screenshot_name)
