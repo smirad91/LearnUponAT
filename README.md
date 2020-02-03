@@ -46,7 +46,14 @@ Replacement for WebDriverWait.
        
 - implicit_wait - workaround for time.sleep() as it does not work under 'Behave' framework
 
-    
+## Dependencies between classes
+Classes that are in path *\features\steps\* use attributes from her mapped classes:
+- mapped class from **FeatureAction** folder (example login.py uses LoggingFeature.py and survey.py uses SurveyFeature.py)
+- mapped class from **ElementRepository** folder (example login.py uses LoggingRepository.py, and survey.py would use SurveyRepository.py)
+- and **NonAppSpecific.py** (for example login.py and survey.py is using it)
+
+![classes](.\classes.png)
+
 ##Logging standard
 Preferred way to log:
    1. Log message explained what is going to be done
