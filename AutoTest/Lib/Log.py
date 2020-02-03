@@ -3,7 +3,6 @@ Class used to create logs with messages and screenshots in Logs folder
 """
 import os
 from time import gmtime, strftime
-
 import pyautogui
 
 
@@ -69,7 +68,8 @@ class Log:
         :type full_screen: bool
         """
         time = strftime("%Y-%m-%d %H:%M:%S", gmtime())
-        msg = time + " -- " + msg
+        if msg!="":
+            msg = time + " -- " + msg
         screenshot_name = str(Log.screenshotNumber) + ".png"
         picture_path = os.path.join(Log.testLogFolderPath, screenshot_name)
         Log.screenshotNumber += 1
@@ -77,6 +77,7 @@ class Log:
             pyautogui.screenshot(picture_path)
         else:
             Log.driver.save_screenshot(picture_path)
+
         with open(Log.fileName, "a") as f:
-            f.writelines("<p><a href='{}'><img src='{}' height='150px' width='200px'></img></a><br>{}</p>".format(
-                screenshot_name, screenshot_name, msg) + "\n")
+            f.writelines("<p><a href='{}'><img src='{}' height='150px' width='200px'></img></a>{}</p>".format(
+                screenshot_name, screenshot_name, "<br>"+msg if msg != "" else "") + "\n")

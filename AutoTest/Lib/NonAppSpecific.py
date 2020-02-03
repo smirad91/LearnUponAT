@@ -1,9 +1,12 @@
 """
 Methods that can be used for every site
 """
+import sys
 import time
+
+from pytest import fail
 from selenium.webdriver.common.by import By
-from selenium.webdriver.support import expected_conditions
+from selenium.webdriver.support import expected_conditions as EC
 from selenium.webdriver.support.wait import WebDriverWait
 from AutoTest.Lib.Driver import Driver
 from AutoTest.Lib.Log import Log
@@ -21,7 +24,7 @@ def create_driver(driver_name, test_name):
     Log.info("Started browser {}".format(driver_name))
     return driver
 
-def wait_until(somepredicate, timeout=60, period=1, errorMessage="Timeout expired"):
+def wait_until(context, somepredicate, timeout=60, period=1, errorMessage="Timeout expired"):
     """
     Somepredicate is function that returns boolean. This function is executed every second
     (this is set in period parameter) during timeout. Function is finished when somepredicate
@@ -40,32 +43,30 @@ def wait_until(somepredicate, timeout=60, period=1, errorMessage="Timeout expire
         try:
             value = somepredicate()
         except Exception as ex:
-            # print(ex)
+            print(ex)
             pass
         if value:
             return True
-        time.sleep(period)
+        implicit_wait(context.driver, period)
+    context.error_msg = errorMessage
     raise Exception(errorMessage)
 
-def wait_element_visible(driver, css_selector, timeout=30):
+
+def implicit_wait(driver, timeout):
     """
-    Wait for element with cssSelector to be shown on browser.
+    Wait for specified seconds. Workaround because time.sleep() is not working in behave framework
+    """
+    try:
+        wait_driver = WebDriverWait(driver, timeout)
+        wait_driver.until(EC.presence_of_element_located((By.ID, 'notexistingid')))
+    except:
+        pass
 
-    :param driver: Driver
-    :type driver: WebDriver
-    :param css_selector: Css selector form
-    :type css_selector: str
-    :return: 
-    """""
-    wait = WebDriverWait(driver, timeout)
-    wait.until(expected_conditions.visibility_of_element_located(
-        (By.CSS_SELECTOR, css_selector)))
-
-def wait_page_load(driver):
+def wait_page_load(context):
     """
     Wait page to load
     """
-    wait_until(lambda: driver.execute_script("return document.readyState;") == "complete", timeout=30)
+    wait_until(lambda: context.driver.execute_script("return document.readyState;") == "complete", timeout=30)
 
 def send_text(element, text, mode="set"):
     """

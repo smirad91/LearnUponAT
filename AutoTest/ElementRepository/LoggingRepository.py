@@ -10,6 +10,7 @@ class LoggingRepository:
     def inp_username(context):
         return context.driver.find_element_by_id("username")
 
+
     @staticmethod
     def inp_password(context):
         return context.driver.find_element_by_id("password")
